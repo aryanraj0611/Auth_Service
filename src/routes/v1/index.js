@@ -2,6 +2,7 @@ const express = require('express');
 const {AuthRequestValidators} = require('../../middlewares/index');
 
 const UserController = require('../../controllers/user-controller');
+const { validateIsAdminRequest } = require('../../middlewares/auth-request-validator');
 
 const router = express.Router();
 
@@ -18,5 +19,10 @@ router.post('/signin',
 router.get('/isAuthenticated',
     UserController.isAuthenticated
 )
+
+router.get('/isAdmin',
+    validateIsAdminRequest,
+    UserController.isAdmin
+);
 
 module.exports = router;
